@@ -22,12 +22,12 @@ aws eks update-kubeconfig --region --name $EKS_CLUSTER_NAME --region us-west-2
 ```
 ### Install AWS ALB Ingress Controller
 1. Create IAM Policy
-  ```bash
-# create iam policy
-aws iam create-policy \
-    --policy-name ALBIngressControllerIAMPolicy \
-    --policy-document file://alb-ingress-controller/alb-ingress-policy-iam-policy.json
-```
+   ```bash
+   # create iam policy
+   aws iam create-policy \
+     --policy-name ALBIngressControllerIAMPolicy \
+     --policy-document file://alb-ingress-controller/alb-ingress-policy-iam-policy.json
+   ```
 2. Create IAM User with policy that created from #1
 3. Note down Access key ID and Secret access key
 4. Modify alb-ingress-controller/alb-ingress-controller.yaml file and fill the value for AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY with value from #4
@@ -47,12 +47,12 @@ aws iam create-policy \
 
 ## Deploy Backend and Frontend to EKS
 1. Deploy
-  ```bash
-find backend/kube-resources/ -type f -iname "*.yaml" -exec kubectl apply -f '{}' \;
-find frontend/kube-resources/ -type f -iname "*.yaml" -exec kubectl apply -f '{}' \;
-```
+   ```bash
+   find backend/kube-resources/ -type f -iname "*.yaml" -exec kubectl apply -f '{}' \;
+   find frontend/kube-resources/ -type f -iname "*.yaml" -exec kubectl apply -f '{}' \;
+   ```
 2. Check ingress public url
-  ```bash
+   ```bash
    kubectl get ing
    ```
 3. Open the address in browser
