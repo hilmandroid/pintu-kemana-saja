@@ -5,15 +5,17 @@ import requests
 
 app = Flask(__name__)
 
-timezone = 7
-trivia_api_url = 'http://numbersapi.com/{}/date'
+trivia_api_url = 'http://backend:8080/trivia'
 
 @app.route('/', methods=['GET', 'POST'])
 def trivia():
     if request.method == 'GET':
         return render_template('GET/index.html')
     else:
-        return 'POST method will be implemented here!'
+        r = requests.get(trivia_api_url)
+        trivia = r.text
+
+        return render_template('POST/index.html', trivia=trivia)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+    <title>Pintu Kemana Saja - Trivia</title>
+</head>
+
+<body>
+
+{% if trivia %}
+<form action="" method="POST" id="trivia" name="trivia">
+    <table>
+            <tr>
+                <td>Today</td>
+                <td>:</td>
+                <td>{{ trivia }}</td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" form="trivia" value="Get Another One!"></td>
+            </tr>
+    </table>
+</form>
+{% endif %}
+
+</body>
+</html>
