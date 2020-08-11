@@ -5,7 +5,7 @@ import requests
 
 app = Flask(__name__)
 
-trivia_api_url = 'http://backend:8080/trivia'
+trivia_api_url = 'http://backend/trivia'
 
 @app.route('/', methods=['GET', 'POST'])
 def trivia():
