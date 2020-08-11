@@ -30,7 +30,7 @@ aws eks update-kubeconfig --region --name $EKS_CLUSTER_NAME --region us-west-2
    ```
 2. Create IAM User with policy that created from #1
 3. Note down Access key ID and Secret access key
-4. Modify alb-ingress-controller/alb-ingress-controller.yaml file and fill the value for AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY with value from #4
+4. Modify alb-ingress-controller/alb-ingress-controller.yaml file and fill the value for AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY with value from #3
 5. Modify container arguments (cluster-name) for alb-ingress-controller with correct cluster name
 6. apply rbac-role.yaml
    ```bash
@@ -51,8 +51,18 @@ aws eks update-kubeconfig --region --name $EKS_CLUSTER_NAME --region us-west-2
    find backend/kube-resources/ -type f -iname "*.yaml" -exec kubectl apply -f '{}' \;
    find frontend/kube-resources/ -type f -iname "*.yaml" -exec kubectl apply -f '{}' \;
    ```
-2. Check ingress public url
+2. Check everything get deployed
+   ```bash
+   kubectl get deploy
+   kubectl get svc
+   kubectl get pods
+   ```
+   ![post-deploy-check](raw/post-deploy-check.png)
+3. Check ingress public url
    ```bash
    kubectl get ing
    ```
-3. Open the address in browser
+   ![get-ingress](raw/get-ingress.png)
+4. Open the address in browser
+   ![trivia-get-method](raw/trivia-get-method.png)
+   ![trivia-post-method](raw/trivia-post-method.png)
