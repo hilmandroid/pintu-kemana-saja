@@ -14,7 +14,7 @@ spec:
         app: trivia-frontend
     spec:
       containers:
-      - image: docker.io/hilmandroid/backend:1.0
+      - image: docker.io/hilmandroid/trivia-frontend:1.0
         imagePullPolicy: Always
         name: trivia-frontend
         ports:
