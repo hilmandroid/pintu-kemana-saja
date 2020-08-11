@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trivia-backend
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: trivia-backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: trivia-backend
+    spec:
+      containers:
+      - image: docker.io/hilmandroid/backend:1.0
+        imagePullPolicy: Always
+        name: trivia-backend
+        ports:
+        - containerPort: 80
