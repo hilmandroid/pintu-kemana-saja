@@ -2,14 +2,7 @@
 
 ## Build Docker Images
 ```bash
-cd backend
-docker build . -t trivia-backend:1.0
-docker image tag trivia-backend:1.0 docker.io/hilmandroid/trivia-backend:1.0
-docker push docker.io/hilmandroid/trivia-backend:1.0
-cd ../frontend
-docker build . -t trivia-frontend:1.0
-docker image tag trivia-frontend:1.0 docker.io/hilmandroid/trivia-frontend:1.0
-docker push docker.io/hilmandroid/trivia-frontend:1.0
+bash build-image.sh
 ```
 
 ## Deploy EKS Cluster on AWS with AWS ALB Ingress Controller
@@ -29,7 +22,7 @@ aws eks update-kubeconfig --region --name $EKS_CLUSTER_NAME --region us-west-2
 ```
 ### Install AWS ALB Ingress Controller
 1. Create IAM Policy
-```bash
+  ```bash
 # create iam policy
 aws iam create-policy \
     --policy-name ALBIngressControllerIAMPolicy \
@@ -39,9 +32,27 @@ aws iam create-policy \
 3. Note down Access key ID and Secret access key
 4. Modify alb-ingress-controller/alb-ingress-controller.yaml file and fill the value for AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY with value from #4
 5. Modify container arguments (cluster-name) for alb-ingress-controller with correct cluster name
-6. apply alb-ingress-controller.yaml
+6. apply rbac-role.yaml
+   ```bash
+   kubectl apply -f alb-ingress-controller/rbac-role.yaml 
+   ```
+7. apply alb-ingress-controller.yaml
    ```bash
    kubectl apply -f alb-ingress-controller/alb-ingress-controller.yaml
    ```
-    
+8. Make sure there's alb-ingress-controller deployment in kube-system namespace
+   ```bash
+   kubectl get deploy -n kube-system
+   ```
 
+## Deploy Backend and Frontend to EKS
+1. Deploy
+  ```bash
+find backend/kube-resources/ -type f -iname "*.yaml" -exec kubectl apply -f '{}' \;
+find frontend/kube-resources/ -type f -iname "*.yaml" -exec kubectl apply -f '{}' \;
+```
+2. Check ingress public url
+  ```bash
+   kubectl get ing
+   ```
+3. Open the address in browser
