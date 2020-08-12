@@ -2,15 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: trivia-backend
+  labels:
+    app: trivia-backend
+    env: {{ .Values.env }}
 spec:
   selector:
     matchLabels:
       app: trivia-backend
+      env: {{ .Values.env }}
   replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
         app: trivia-backend
+        env: {{ .Values.env }}
     spec:
       containers:
       - image: docker.io/hilmandroid/trivia-backend:1.0
