@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: trivia-backend
-  replicas: {{ .Values.replicaSet }}
+  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
