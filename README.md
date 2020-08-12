@@ -1,10 +1,5 @@
 # pintu-kemana-saja
 
-## Build Docker Images
-```bash
-bash build-image.sh
-```
-
 ## Deploy EKS Cluster on AWS with AWS ALB Ingress Controller
 ### Deploy EKS Cluster with Terraform
 ```bash
@@ -45,24 +40,37 @@ aws eks update-kubeconfig --region --name $EKS_CLUSTER_NAME --region us-west-2
    kubectl get deploy -n kube-system
    ```
 
+## Build Docker Images
+```bash
+bash build-image.sh [SERVICE_NAME]
+```
+Example:
+```
+bash build-image.sh trivia-frontend
+```
+
 ## Deploy Backend and Frontend to EKS
-1. Deploy
+```bash
+bash deploy.sh [SERVICE_NAME] [ENV]
+```
+
+Example:
+```bash
+# deploy app on staging
+bash deploy.sh trivia-frontend staging
+bash deploy.sh trivia-backend staging
+
+# deploy app on prod
+bash deploy.sh trivia-frontend prod
+bash deploy.sh trivia-backend prod
+```
+
+## Access Frontend from Public URL
+1. Check ingress with kubectl
    ```bash
-   find backend/kube-resources/ -type f -iname "*.yaml" -exec kubectl apply -f '{}' \;
-   find frontend/kube-resources/ -type f -iname "*.yaml" -exec kubectl apply -f '{}' \;
+   kubectl get ing -A
    ```
-2. Check everything get deployed
-   ```bash
-   kubectl get deploy
-   kubectl get svc
-   kubectl get pods
-   ```
-   ![post-deploy-check](raw/post-deploy-check.png)
-3. Check ingress public url
-   ```bash
-   kubectl get ing
-   ```
-   ![get-ingress](raw/get-ingress.png)
-4. Open the address in browser
-   ![trivia-get-method](raw/trivia-get-method.png)
-   ![trivia-post-method](raw/trivia-post-method.png)
+   ![ingress](raw/check-ingress.png)
+2. Open the address in browser
+   ![frontend-get](raw/frontend-get.png)
+   ![frontend-get](raw/frontend-post.png)

@@ -2,7 +2,9 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: trivia-frontend
-  namespace: default
+  labels:
+    env: {{ .Values.env }}
+    app: trivia-frontend
   annotations:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing

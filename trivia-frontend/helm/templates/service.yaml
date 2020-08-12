@@ -1,8 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: trivia-backend
-  namespace: default
+  name: trivia-frontend
+  labels:
+    env: {{ .Values.env }}
+    app: trivia-frontend
 spec:
   ports:
     - port: 80
@@ -10,4 +12,5 @@ spec:
       protocol: TCP
   type: NodePort
   selector:
-    app: trivia-backend
+    app: trivia-frontend
+    env: {{ .Values.env }}
