@@ -1,10 +1,17 @@
-#!/usr/bin/bash
+#!/bin/bash
 
-cd backend
-docker build . -t trivia-backend:latest
-docker image tag trivia-backend:latest docker.io/hilmandroid/trivia-backend:latest
-docker push docker.io/hilmandroid/trivia-backend:latest
-cd ../frontend
-docker build . -t trivia-frontend:latest
-docker image tag trivia-frontend:latest docker.io/hilmandroid/trivia-frontend:latest
-docker push docker.io/hilmandroid/trivia-frontend:latest
+set -e
+
+if [ $# -ne 1 ]; then
+    echo ""
+    echo " Usage: ./build-image.sh [SERVICE_NAME]"
+    echo ""
+    exit 1
+fi
+
+SERVICE_NAME=$1
+
+cd "${SERVICE_NAME}"
+docker build . -t "${SERVICE_NAME}:latest"
+docker image tag "${SERVICE_NAME}:latest" "docker.io/hilmandroid/${SERVICE_NAME}:latest"
+docker push "docker.io/hilmandroid/${SERVICE_NAME}:latest"
