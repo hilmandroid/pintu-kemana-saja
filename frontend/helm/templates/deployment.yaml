@@ -2,16 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: trivia-frontend
-  namespace: default
+  labels:
+    env: {{ .Values.env }}
 spec:
   selector:
     matchLabels:
       app: trivia-frontend
-  replicas: 1
+      env: {{ .Values.env }}
+  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
         app: trivia-frontend
+        env: {{ .Values.env }}
     spec:
       containers:
       - image: docker.io/hilmandroid/trivia-frontend:1.0
