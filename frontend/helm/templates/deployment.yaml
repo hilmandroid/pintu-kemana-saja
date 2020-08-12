@@ -4,6 +4,7 @@ metadata:
   name: trivia-frontend
   labels:
     env: {{ .Values.env }}
+    app: trivia-frontend
 spec:
   selector:
     matchLabels:
