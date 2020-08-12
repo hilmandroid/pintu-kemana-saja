@@ -25,7 +25,7 @@ aws eks update-kubeconfig --region --name $EKS_CLUSTER_NAME --region us-west-2
    ```
 2. Create IAM User with policy that created from #1
 3. Note down Access key ID and Secret access key
-4. Modify alb-ingress-controller/alb-ingress-controller.yaml file and fill the value for AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY with value from #4
+4. Modify alb-ingress-controller/alb-ingress-controller.yaml file and fill the value for AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY with value from #3
 5. Modify container arguments (cluster-name) for alb-ingress-controller with correct cluster name
 6. apply rbac-role.yaml
    ```bash
