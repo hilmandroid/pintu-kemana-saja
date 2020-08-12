@@ -2,12 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: trivia-backend
-  namespace: default
 spec:
   selector:
     matchLabels:
       app: trivia-backend
-  replicas: 1
+  replicas: {{ .Values.replicaSet }}
   template:
     metadata:
       labels:
